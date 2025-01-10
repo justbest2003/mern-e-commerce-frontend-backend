@@ -6,17 +6,17 @@ const Banner = () => {
       <div className="py-24 flex flex-col md:flex-row-reverse justify-between items-center">
         <div className="md:w-1/2">
           <img src="/images/home/banner.png" alt="" />
-          <div className="flex flex-col md:flex-row items-center justify-around mt-16 gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-around -mt-16 gap-4">
             <ProductItem
               image="/images/home/gamepad.png"
               name="Game pad"
-              rating="1"
+              rating="4"
               price="499"
             />
             <ProductItem
               image="/images/home/headphone.png"
               name="Head Phone"
-              rating="3"
+              rating="5"
               price="1000"
             />
           </div>
