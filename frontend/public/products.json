@@ -1,0 +1,202 @@
+[
+  {
+    "_id": 1,
+    "name": "Coding Keyboard",
+    "description": "Mechanical keyboard optimized for Coding with customizable keycaps",
+    "price": 3500,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 2,
+    "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse designed for long coding sessions",
+    "price": 1500,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 3,
+    "name": "Gaming Headset",
+    "description": "High-quality surround sound headset for immersive gaming and coding",
+    "price": 2500,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 4,
+    "name": "Laptop Stand",
+    "description": "Adjustable laptop stand for comfortable viewing and typing posture",
+    "price": 800,
+    "image": "https://picsum.photos/200",
+    "category": "Accessories"
+  },
+  {
+    "_id": 5,
+    "name": "RGB LED Strip",
+    "description": "Customizable RGB LED strip for desk ambiance and mood lighting",
+    "price": 1200,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 6,
+    "name": "Mechanical Gaming Keyboard",
+    "description": "A mechanical keyboard with responsive switches and customizable RGB lighting",
+    "price": 4500,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 7,
+    "name": "Portable SSD",
+    "description": "Fast and portable solid-state drive for quick data transfer and storage",
+    "price": 3000,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 8,
+    "name": "Smartwatch",
+    "description": "Feature-packed smartwatch with health tracking and notification syncing",
+    "price": 3500,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 9,
+    "name": "Noise Cancelling Headphones",
+    "description": "Over-ear headphones with advanced noise cancellation technology for focus",
+    "price": 4200,
+    "image": "https://picsum.photos/200",
+    "category": "Gadgets"
+  },
+  {
+    "_id": 10,
+    "name": "Webcam Pro",
+    "description": "High-definition webcam with autofocus for clear video calls and streaming",
+    "price": 2000,
+    "image": "https://picsum.photos/200",
+    "category": "Accessories"
+  },
+  {
+    "_id": 11,
+    "name": "Casual T-shirt",
+    "description": "Soft cotton t-shirt perfect for daily wear",
+    "price": 500,
+    "image": "https://picsum.photos/200",
+    "category": "Clothing"
+  },
+  {
+    "_id": 12,
+    "name": "Slim Fit Jeans",
+    "description": "Stylish and comfortable slim fit jeans for everyday use",
+    "price": 1200,
+    "image": "https://picsum.photos/200",
+    "category": "Clothing"
+  },
+  {
+    "_id": 13,
+    "name": "Graphic Hoodie",
+    "description": "Cozy hoodie with a custom graphic design",
+    "price": 2200,
+    "image": "https://picsum.photos/200",
+    "category": "Clothing"
+  },
+  {
+    "_id": 14,
+    "name": "Leather Jacket",
+    "description": "Sleek and stylish leather jacket for a bold look",
+    "price": 5500,
+    "image": "https://picsum.photos/200",
+    "category": "Clothing"
+  },
+  {
+    "_id": 15,
+    "name": "Running Shoes",
+    "description": "Comfortable running shoes designed for long-lasting support",
+    "price": 3500,
+    "image": "https://picsum.photos/200",
+    "category": "Clothing"
+  },
+  {
+    "_id": 16,
+    "name": "Sunglasses",
+    "description": "Fashionable sunglasses with UV protection",
+    "price": 1200,
+    "image": "https://picsum.photos/200",
+    "category": "Accessories"
+  },
+  {
+    "_id": 17,
+    "name": "Leather Wallet",
+    "description": "Premium leather wallet with multiple card slots",
+    "price": 1500,
+    "image": "https://picsum.photos/200",
+    "category": "Accessories"
+  },
+  {
+    "_id": 18,
+    "name": "Watch",
+    "description": "Elegant wristwatch with classic design",
+    "price": 3000,
+    "image": "https://picsum.photos/200",
+    "category": "Accessories"
+  },
+  {
+    "_id": 19,
+    "name": "Belt",
+    "description": "Adjustable leather belt for a perfect fit",
+    "price": 800,
+    "image": "https://picsum.photos/200",
+    "category": "Accessories"
+  },
+  {
+    "_id": 20,
+    "name": "Backpack",
+    "description": "Spacious backpack with multiple compartments for storage",
+    "price": 2200,
+    "image": "https://picsum.photos/200",
+    "category": "Accessories"
+  },
+  {
+    "_id": 21,
+    "name": "Tech Swag Hoodie",
+    "description": "Trendy hoodie with tech-related graphics and a comfortable fit",
+    "price": 2400,
+    "image": "https://picsum.photos/200",
+    "category": "Swag"
+  },
+  {
+    "_id": 22,
+    "name": "Logo Baseball Cap",
+    "description": "Stylish baseball cap with a cool logo",
+    "price": 900,
+    "image": "https://picsum.photos/200",
+    "category": "Swag"
+  },
+  {
+    "_id": 23,
+    "name": "Tech Mug",
+    "description": "Insulated mug with a tech-themed design to keep your drinks warm",
+    "price": 650,
+    "image": "https://picsum.photos/200",
+    "category": "Swag"
+  },
+  {
+    "_id": 24,
+    "name": "LED Sneakers",
+    "description": "Sneakers with LED lights that change color for a cool look",
+    "price": 3500,
+    "image": "https://picsum.photos/200",
+    "category": "Swag"
+  },
+  {
+    "_id": 25,
+    "name": "Bluetooth Beanie",
+    "description": "Beanie hat with built-in Bluetooth speakers for music and calls",
+    "price": 2000,
+    "image": "https://picsum.photos/200",
+    "category": "Swag"
+  }
+]

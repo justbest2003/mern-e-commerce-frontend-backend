@@ -10,7 +10,7 @@ const Card = ({ item }) => {
   return (
     <div className="card shadow-xl relative mr-5 md:my-5 h-120">
       <div
-        className={`rating gap-1 absolute right-2 top-2 p-4 heartStar bg-red rounded-full`}
+        className={`rating gap-1 absolute right-2 top-2 p-2 heartStar bg-red rounded-full shadow-lg transform transition-all duration-300 hover:scale-110`}
         onClick={handleHeartClick}
       >
         <input

@@ -9,19 +9,19 @@ const Navbar = () => {
           <summary>Category</summary>
           <ul>
             <li>
-              <a href="All">All</a>
+              <a href="/shop">All</a>
             </li>
             <li>
-              <a href="Clothing">Clothing</a>
+              <a href="/shop?clothing">Clothing</a>
             </li>
             <li>
-              <a href="Accessories">Accessories</a>
+              <a href="/shop?accessories">Accessories</a>
             </li>
             <li>
-              <a href="Gadgets">Gadgets</a>
+              <a href="/shop?gadgets">Gadgets</a>
             </li>
             <li>
-              <a href="Swag">Swag</a>
+              <a href="/shop?swag">Swag</a>
             </li>
           </ul>
         </details>
