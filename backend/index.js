@@ -6,6 +6,10 @@ const app = express();
 const BASE_URL = process.env.BASE_URL;
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
+const userRouter = require("./routers/user.router");
+const productRouter = require("./routers/product.router");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./docs/swagger-output.json");
 
 try {
   mongoose.connect(DB_URL);
@@ -19,6 +23,10 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to E-commerce Restful API</h1>");
 });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/product", productRouter);
 
 app.listen(PORT, () => {
   console.log("Server is running on http://localhost:" + PORT);

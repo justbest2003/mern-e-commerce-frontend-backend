@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Card = ({ item }) => {
-  const { id, name, image, description, category, price } = item;
+  const { _id, name, image, description, category, price } = item;
   const [isHeartFilled, setIsHeartFilled] = useState(false);
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
@@ -10,7 +10,7 @@ const Card = ({ item }) => {
   return (
     <div className="card shadow-xl relative mr-5 md:my-5 h-120">
       <div
-        className={`rating gap-1 absolute right-2 top-2 p-2 heartStar bg-red rounded-full shadow-lg transform transition-all duration-300 hover:scale-110`}
+        className={`rating gap-1 absolute right-2 top-2 p-2 z-10 heartStar bg-red rounded-full shadow-lg transform transition-all duration-300 hover:scale-110`}
         onClick={handleHeartClick}
       >
         <input

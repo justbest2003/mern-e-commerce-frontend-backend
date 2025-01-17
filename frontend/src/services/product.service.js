@@ -1,9 +1,9 @@
 import api from "./api";
-const API_URL = "";
+const API_URL = "/product";
 
 const getAllProducts = async () => {
   //http://localhost:5173/products.json
-  return await api.get(`${API_URL}/products.json`);
+  return await api.get(`${API_URL}`);
 };
 
 const ProductService = {
