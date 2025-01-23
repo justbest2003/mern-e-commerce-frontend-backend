@@ -3,7 +3,8 @@ import MainLayout from "../layouts/Main";
 import Home from "../pages/Home/Home";
 import Shop from "../pages/Shop/Index";
 import Cart from "../pages/Cart/Index";
-
+import UserProfile from "../pages/Setting/Index";
+import Profile from "../pages/Profile/Index";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +21,14 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/update-profile",
+        element: <UserProfile />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
