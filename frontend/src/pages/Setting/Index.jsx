@@ -1,61 +1,80 @@
-import { useState, useEffect } from "react";
+/* eslint-disable no-unused-vars */
 import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Index = () => {
-  const { updateUserProfile } = useContext(AuthContext);
-  const [name, setName] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
-
-  const handleUpdate = () => {
-    updateUserProfile(name, photoURL)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
+  const { updateUserProfile, user } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    const name = data.name;
+    const photoURL = data.photoURL;
+    updateUserProfile({ name, photoURL })
       .then(() => {
-        console.log("Profile updated successfully!");
+        // alert('Profile Updated!')
+        Swal.fire({
+          icon: "success",
+          title: "Profile Updated!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log("Error updating profile: ", error);
+        console.log(error);
       });
   };
-
-  useEffect(() => {}, []);
   return (
-    <div className="section-container bg-gradient-to-r from-[#FAFAFA] from-0% to-[#FCFCFC] to-100%">
-      <div className="py-52 flex flex-col justify-center items-center">
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form className="card-body">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="name"
-                className="input input-bordered"
-                required
-                // value={user?.displayName}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Upload Profile Photo</span>
-              </label>
-              <input
-                type="text"
-                placeholder="image"
-                className="input input-bordered"
-                required
-                value={photoURL}
-                onChange={(e) => setPhotoURL(e.target.value)}
-              />
-            </div>
-            <div className="form-control mt-6">
-              <button className="btn bg-red text-white" onClick={handleUpdate}>
-                Update
-              </button>
-            </div>
-          </form>
-        </div>
+    <div className="flex items-center justify-center h-screen">
+      <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
+          <h3 className="font-bold">Update Your Profile</h3>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
+            <input
+              type="text"
+              placeholder="name"
+              className="input input-bordered"
+              value={user?.displayName}
+              required
+              {...register("name")}
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Upload Profile Photo</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Photo URL"
+              className="input input-bordered"
+              value={user?.photoURL}
+              required
+              {...register("photoURL")}
+            />
+          </div>
+
+          <div className="form-control mt-6">
+            <input
+              type="submit"
+              value="Update"
+              className="btn bg-red text-white"
+            />
+          </div>
+        </form>
       </div>
     </div>
   );

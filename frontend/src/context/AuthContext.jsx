@@ -44,10 +44,10 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
-  const updateUserProfile = (displayName, photoURL) => {
+  const updateUserProfile = ({ name, photoURL }) => {
     return updateProfile(auth.currentUser, {
-      displayName,
-      photoURL,
+      displayName: name,
+      photoURL: photoURL,
     });
   };
 
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
   //check if user is logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(user);
+      setUser(currentUser);
       if (currentUser) {
         setUser(currentUser);
       }
