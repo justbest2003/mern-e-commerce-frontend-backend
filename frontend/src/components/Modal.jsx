@@ -66,7 +66,7 @@ const Modal = ({ name }) => {
         showConfirmButton: false,
         timer: 1500,
       });
-      document.getElementById("signup").close();
+      document.getElementById("signin").close();
       navigate(from, { replace: true });
     });
   };

@@ -1,42 +1,38 @@
 const CartModel = require("../models/Cart");
 
 exports.createCart = async (req, res) => {
-  /**
-    #swagger.tags = ['Cart']
-    #swagger.summary = "Create a new product"
-    #swagger.description = 'Endpoint to create a new product'
-   */
-
-  const { productId, name, price, image, quantity, email } = req.body;
-  if (!productId || !name || !price || !image || !quantity || !email) {
-    return res.status(400).json({ message: "Product information is missing!" });
+  /*
+    #swagger.tags = ['Carts']
+    #swagger.summary = "Add a Cart Item"
+    #swagger.description = 'Endpoint to Create Cart'
+  */
+  const { productId, name, email, image, quantity, price } = req.body;
+  if (!productId || !name || !email || !image || !quantity || !price) {
+    return res.status(400).json({ message: "Product information is missing" });
   }
   try {
-    //Existing item in our cart
-    const existingItem = await CartModel.findOne({ productId, email }); //productId:productId, email:email
+    //Existing item in out cart
+    const existingItem = await CartModel.findOne({ productId, email });
     if (existingItem) {
       existingItem.quantity += quantity;
       const data = await existingItem.save();
-      return res
-        .status(200)
-        .json({ message: "Product quantity updated!", data });
+      return res.send(data);
     }
     //add item to cart for the first time
     const cart = new CartModel({
       productId,
       name,
-      price,
+      email,
       image,
       quantity,
-      email,
+      price,
     });
-    //await cart.save();
     const data = await cart.save();
     res.send(data);
-    res.status(201).json({ message: "Product added to cart!" });
   } catch (error) {
     res.status(500).json({
-      message: "Something error occurred while adding new cart item!",
+      message:
+        error.message || "Something error occurred white adding new cart item",
     });
   }
 };

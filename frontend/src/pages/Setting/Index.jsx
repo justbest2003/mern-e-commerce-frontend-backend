@@ -48,7 +48,7 @@ const Index = () => {
               type="text"
               placeholder="name"
               className="input input-bordered"
-              value={user?.displayName}
+              defaultValue={user?.displayName || ""}
               required
               {...register("name")}
             />
@@ -61,7 +61,7 @@ const Index = () => {
               type="text"
               placeholder="Photo URL"
               className="input input-bordered"
-              value={user?.photoURL}
+              defaultValue={user?.photoURL || ""}
               required
               {...register("photoURL")}
             />
