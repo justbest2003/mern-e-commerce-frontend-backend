@@ -5,6 +5,9 @@ import Shop from "../pages/Shop/Index";
 import Cart from "../pages/Cart/Index";
 import UserProfile from "../pages/Setting/Index";
 import Profile from "../pages/Profile/Index";
+
+import ProtectPage from "../pages/Cart/Index";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,15 +23,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <ProtectPage>
+            <Cart />
+          </ProtectPage>
+        ),
       },
       {
         path: "/update-profile",
-        element: <UserProfile />,
+        element: (
+          <ProtectPage>
+            <UserProfile />
+          </ProtectPage>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <ProtectPage>
+            <Profile />
+          </ProtectPage>
+        ),
       },
     ],
   },

@@ -4,10 +4,22 @@ import { FaTrash } from "react-icons/fa";
 import CartService from "../../services/cart.service";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../context/AuthContext";
-
 const Index = () => {
   const [cart, refetch] = useCart();
   const { user } = useContext(AuthContext);
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("th-TH", {
+      style: "currency",
+      currency: "THB",
+    }).format(price);
+  };
+
+  // คำนวณราคารวมของสินค้าในตะกร้า
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.quantity * item.price,
+    0
+  );
+
   const handleClearCart = async () => {
     Swal.fire({
       icon: "warning",
@@ -76,8 +88,53 @@ const Index = () => {
       }
     });
   };
-  const handleIncrease = async () => {};
-  const handleDecrease = async () => {};
+
+  const handleIncrease = async (cartItem) => {
+    if (cartItem.quantity + 1 <= 10) {
+      try {
+        const response = await CartService.updateCartItem(cartItem._id, {
+          quantity: cartItem.quantity + 1,
+        });
+        if (response.status === 200) {
+          refetch();
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Maximum quantity is 10",
+      });
+    }
+  };
+
+  const handleDecrease = async (cartItem) => {
+    if (cartItem.quantity > 1) {
+      try {
+        const response = await CartService.updateCartItem(cartItem._id, {
+          quantity: cartItem.quantity - 1,
+        });
+        if (response.status === 200) {
+          refetch();
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+      }
+    } else {
+      handleDeleteItem(cartItem); // ถ้าจำนวนสินค้าเหลือ 1 แล้วลดอีก จะลบออกจากตะกร้า
+    }
+  };
+
   return (
     <div>
       <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
@@ -140,22 +197,24 @@ const Index = () => {
                         <div className="space-x-6 text-center">
                           <button
                             className="btn btn-xs mr-6"
-                            onClick={handleDecrease}
+                            onClick={() => handleDecrease(cartItem)}
                           >
                             -
                           </button>
                           {cartItem.quantity}
                           <button
                             className="btn btn-xs mr-2"
-                            onClick={handleIncrease}
+                            onClick={() => handleIncrease(cartItem)}
                           >
                             +
                           </button>
                         </div>
                       </td>
-                      <td className="text-center">{cartItem.price}</td>
                       <td className="text-center">
-                        {cartItem.quantity * cartItem.price}
+                        {formatPrice(cartItem.price)}
+                      </td>
+                      <td className="text-center">
+                        {formatPrice(cartItem.quantity * cartItem.price)}
                       </td>
                       <td className="text-center">
                         <button onClick={() => handleDeleteItem(cartItem)}>
@@ -166,6 +225,26 @@ const Index = () => {
                   ))}
               </tbody>
             </table>
+            <hr />
+            <div className="flex flex-col md:flex-row justify-between items-start my-12 gap-8 ">
+              <div className="md:w-1/2 space-y-3">
+                <h3 className="text-lg font-semibold">Customer Details</h3>
+                <p className="">Name : {user?.displayName}</p>
+                <p className="">Email : {user?.email}</p>
+                <p className="">UserId : {user?.uid}</p>
+              </div>
+              <div className="md:w-1/2 space-y-3">
+                <h3 className="text-lg font-semibold">Shopping Details</h3>
+                <p className="">Total Products : {cart.length}</p>
+                <p className="">Total Price : {formatPrice(totalPrice)}</p>
+                <a
+                  href="/check-out"
+                  className="btn btn-md bg-red text-white px-8 py-1"
+                >
+                  Proceed to checkout
+                </a>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 space-y-6">
@@ -186,7 +265,7 @@ const Index = () => {
               </p>
             </div>
             <a
-              href="/"
+              href="/shop"
               className="px-6 py-2 text-lg shadow-md hover:shadow-xl transition bg-[#831309] text-white rounded-lg"
             >
               Continue Shopping
