@@ -1,12 +1,16 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/Main";
+import DashboardLayout from "../layouts/DashboardLayout";
 import Home from "../pages/Home/Home";
 import Shop from "../pages/Shop/Index";
 import Cart from "../pages/Cart/Index";
 import UserProfile from "../pages/Setting/Index";
 import Profile from "../pages/Profile/Index";
+import Dashboard from "../pages/Dashboard/Index";
+import AddProduct from "../pages/AddProduct/Index";
+import ManageItems from "../pages/ManageItems/Index";
 
-import ProtectPage from "../pages/Cart/Index";
+import ProtectPage from "../pages/ProtectPage/Index";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +48,24 @@ const router = createBrowserRouter([
             <Profile />
           </ProtectPage>
         ),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "manage-items",
+        element: <ManageItems />,
       },
     ],
   },

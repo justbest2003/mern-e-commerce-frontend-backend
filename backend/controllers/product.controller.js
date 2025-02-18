@@ -125,7 +125,7 @@ exports.updateProduct = async (req, res) => {
     productDoc.category = category;
     productDoc.price = price;
     if (req.file) {
-      productDoc.cover = req.file.firebaseUrl;
+      productDoc.image = req.file.firebaseUrl;
     }
     await productDoc.save();
     res.json(productDoc);

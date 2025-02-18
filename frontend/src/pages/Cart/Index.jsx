@@ -137,9 +137,9 @@ const Index = () => {
 
   return (
     <div>
-      <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
+      <div className="min-h-screen container mx-auto xl:px-24 px-4">
         <div className="bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100%">
-          <div className="pt-20 flex flex-col items-center justify-center">
+          <div className="pt-32 flex flex-col items-center justify-center">
             <div className="text-center px-4 space-y-7">
               <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
                 Items Added to The <span className="text-red">Cart</span>

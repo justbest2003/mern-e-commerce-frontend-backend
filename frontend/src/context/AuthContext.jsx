@@ -13,7 +13,6 @@ import {
   FacebookAuthProvider,
   updateProfile,
 } from "firebase/auth";
-import { set } from "react-hook-form";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -55,6 +54,7 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    isLoading,
     createUser,
     login,
     logout,
@@ -62,7 +62,6 @@ const AuthProvider = ({ children }) => {
     signUpWithGithub,
     signUpWithFacebook,
     updateUserProfile,
-    isLoading,
   };
 
   //check if user is logged in
