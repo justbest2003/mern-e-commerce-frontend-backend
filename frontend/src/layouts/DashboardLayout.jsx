@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation, Link } from "react-router";
 import logo from "/images/admin/logo.png";
 
 import { MdDashboard } from "react-icons/md";
@@ -10,13 +10,38 @@ import { FaUserCircle } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const isAdmin = true;
+  const location = useLocation();
+  const pathSegments = location.pathname.split("/").filter(Boolean);
+
   return (
     <div>
       {isAdmin ? (
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col items-center justify-center">
-            {/* Page content here */}
+          <div className="drawer-content flex flex-col w-full p-4">
+            {/* Breadcrumbs */}
+            <nav className="text-sm breadcrumbs mb-4">
+              <ul className="flex space-x-2">
+                <li>
+                  <Link to="/dashboard" className="text-blue-500">
+                    Dashboard
+                  </Link>
+                </li>
+                {pathSegments.slice(1).map((segment, index) => {
+                  const path = `/dashboard/${pathSegments
+                    .slice(1, index + 2)
+                    .join("/")}`;
+                  return (
+                    <li key={index} className="flex items-center">
+                      <span className="mx-2">/</span>
+                      <Link to={path} className="text-blue-500 capitalize">
+                        {segment}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
             <Outlet />
           </div>
           <div className="drawer-side">
@@ -83,7 +108,7 @@ const DashboardLayout = () => {
                 <a>Order Tracking</a>
               </li>
               <li>
-                <a>Customer Suppo</a>
+                <a>Customer Support</a>
               </li>
             </ul>
           </div>

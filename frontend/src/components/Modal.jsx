@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router";
+import UserService from "../services/user.service";
 
 const Modal = ({ name }) => {
   const {
@@ -30,6 +31,7 @@ const Modal = ({ name }) => {
       login(data.email, data.password).then((result) => {
         const user = result.user;
         console.log(user);
+
         Swal.fire({
           icon: "success",
           title: "Login Successful!",
@@ -41,25 +43,27 @@ const Modal = ({ name }) => {
       });
     } else {
       // หากเป็นการสมัครสมาชิก
-      createUser(data.email, data.password).then((result) => {
+      createUser(data.email, data.password).then(async (result) => {
         const user = result.user;
         console.log(user);
+        await UserService.addUser(user.email);
         Swal.fire({
           icon: "success",
           title: "Register Successfully!",
           showConfirmButton: false,
           timer: 1500,
         });
-        document.getElementById("signup").close();
+        document.getElementById("signin").close();
         navigate(from, { replace: true });
       });
     }
   };
 
   const googleSignUp = () => {
-    signUpWithGoogle().then((result) => {
+    signUpWithGoogle().then(async (result) => {
       const user = result.user;
       console.log(user);
+      await UserService.addUser(user.email);
       Swal.fire({
         icon: "success",
         title: "Google Sign Up Successfully!",

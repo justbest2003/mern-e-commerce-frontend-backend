@@ -11,6 +11,7 @@ import AddProduct from "../pages/AddProduct/Index";
 import ManageItems from "../pages/ManageItems/Index";
 
 import ProtectPage from "../pages/ProtectPage/Index";
+import AdminRoute from "../pages/ProtectRoute/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
     children: [
       {
         path: "",
