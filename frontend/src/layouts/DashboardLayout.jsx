@@ -88,7 +88,7 @@ const DashboardLayout = () => {
                 </a>
               </li>
               <li>
-                <a>
+                <a href="/dashboard/all-users">
                   <FaUserCircle />
                   All Users
                 </a>

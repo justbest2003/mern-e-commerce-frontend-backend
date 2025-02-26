@@ -54,3 +54,116 @@ exports.addUser = async (req, res) => {
     });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await UserModel.find();
+    if (!users) {
+      return res.status(400).json({ message: "No User!" });
+    }
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({
+      message: "Something error occurred while retrieving users",
+      error: error.message,
+    });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { email, role } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "Email is required!" });
+  }
+  try {
+    const user = await UserModel.findByIdAndUpdate(
+      id,
+      { email, role },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: "Something error occurred while updating user",
+      error: error.message,
+    });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await UserModel.findByIdAndDelete(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something error occurred while deleting user",
+      error: error.message,
+    });
+  }
+};
+
+exports.makeAdmin = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    user.role = "admin";
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    {
+      res.status(500).json({
+        message: "Something error occurred while changing user role to admin",
+        error: error.message,
+      });
+    }
+  }
+};
+
+exports.makeUser = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    user.role = "user";
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    {
+      res.status(500).json({
+        message: "Something error occurred while changing user role to user",
+        error: error.message,
+      });
+    }
+  }
+};
+
+exports.getRoleByEmail = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+    res.status(200).json({ role: user.role });
+  } catch (error) {
+    {
+      res.status(500).json({
+        message: "Something error occurred while getting user role",
+        error: error.message,
+      });
+    }
+  }
+};
