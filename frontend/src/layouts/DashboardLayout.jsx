@@ -70,7 +70,7 @@ const DashboardLayout = () => {
                 </a>
               </li>
               <li>
-                <a>
+                <a href="/dashboard/manage-orders">
                   <IoBagCheck />
                   Manage Orders
                 </a>
