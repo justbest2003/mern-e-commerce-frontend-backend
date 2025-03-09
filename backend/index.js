@@ -11,6 +11,8 @@ const productRouter = require("./routers/product.router");
 const cartRouter = require("./routers/cart.router");
 const stripeRouter = require("./routers/stripe.router");
 const orderRouter = require("./routers/order.router");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./docs/swagger-output.json");
 
 try {
   mongoose.connect(DB_URL);
