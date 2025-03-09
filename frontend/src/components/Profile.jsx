@@ -4,8 +4,9 @@ import { useContext } from "react";
 import useCart from "../hooks/useCart";
 
 const Profile = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, getUser } = useContext(AuthContext);
   const [cart, setCart] = useCart();
+  const userInfo = getUser();
   const handleLogout = () => {
     logout();
   };
@@ -57,6 +58,11 @@ const Profile = () => {
           tabIndex={0}
           className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
         >
+          {userInfo?.role === "admin" && (
+            <li>
+              <a href="/dashboard">Dashboard</a>
+            </li>
+          )}
           <li>
             <a className="justify-between" href="/profile">
               Profile
@@ -67,7 +73,7 @@ const Profile = () => {
             <a href="/update-profile">Settings</a>
           </li>
           <li>
-            <a onClick={() => logout()}>Logout</a>
+            <a onClick={handleLogout}>Logout</a>
           </li>
         </ul>
       </div>

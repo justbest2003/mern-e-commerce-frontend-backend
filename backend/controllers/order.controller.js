@@ -1,5 +1,4 @@
 const OrderModel = require("../models/Order");
-
 // Get all orders
 exports.getAllOrders = async (req, res) => {
   try {
@@ -14,7 +13,7 @@ exports.getAllOrders = async (req, res) => {
 exports.getOrderById = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await OrderModel.findById(id);
+    const order = await OrderModel.findById(id).populate("products.productId");
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
@@ -52,11 +51,15 @@ exports.updateDeliveryStatus = async (req, res) => {
 
 // Delete order by ID
 exports.deleteOrderById = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+    const deletedOrder = await OrderModel.findByIdAndDelete(id);
+
     if (!deletedOrder) {
       return res.status(404).json({ message: "Order not found" });
     }
+
     res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });

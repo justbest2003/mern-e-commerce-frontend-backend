@@ -14,11 +14,7 @@ const formatPrice = (price) => {
 
 const Index = () => {
   const [orders, setOrders] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(null);
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   const fetchOrders = async () => {
     try {
@@ -27,6 +23,34 @@ const Index = () => {
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const handleDeleteOrder = async (orderId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await OrderService.deleteOrder(orderId);
+          setOrders((prevOrders) =>
+            prevOrders.filter((order) => order._id !== orderId)
+          );
+          Swal.fire("Deleted!", "The order has been deleted.", "success");
+        } catch (error) {
+          Swal.fire("Error!", "Failed to delete the order.", "error");
+        }
+      }
+    });
   };
 
   const handleStatusChange = async (orderId, newStatus) => {
@@ -77,34 +101,34 @@ const Index = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((orders, index) => (
-              <tr key={orders._id}>
-                <td className="text-center">{`${orders._id.slice(
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td className="text-center">{`${order._id.slice(
                   0,
                   3
-                )}...${orders._id.slice(-3)}`}</td>
-                <td className="text-center">{orders.email}</td>
-                <td className="text-center">{formatPrice(orders.total)}</td>
+                )}...${order._id.slice(-3)}`}</td>
+                <td className="text-center">{order.email}</td>
+                <td className="text-center">{formatPrice(order.total)}</td>
                 <td className="text-center capitalize">
                   <span
                     className={`px-3 py-1 text-sm font-semibold rounded-full ${
-                      orders.payment_status?.toLowerCase() === "paid"
+                      order.payment_status?.toLowerCase() === "paid"
                         ? "bg-green-600 text-black"
-                        : orders.payment_status?.toLowerCase() === "pending"
+                        : order.payment_status?.toLowerCase() === "pending"
                         ? "bg-yellow-500 text-black"
                         : "bg-red-500 text-black"
                     }`}
                   >
-                    {orders.payment_status}
+                    {order.payment_status}
                   </span>
                 </td>
 
                 <td className="text-center">
                   <select
-                    key={orders._id} // ให้ React รู้ว่ามีการเปลี่ยนค่า
-                    value={orders.delivery_status}
+                    key={order._id} // ให้ React รู้ว่ามีการเปลี่ยนค่า
+                    value={order.delivery_status}
                     onChange={(e) =>
-                      handleStatusChange(orders._id, e.target.value)
+                      handleStatusChange(order._id, e.target.value)
                     }
                     className="select select-bordered select-sm"
                   >
@@ -118,15 +142,18 @@ const Index = () => {
                 <td>
                   <div className="flex items-center gap-2">
                     <button
-                      className="btn btn-info btn-sm "
-                      onClick={() =>
-                        document.getElementById("ModalOrderDetails").showModal()
-                      }
+                      className="btn btn-info btn-sm"
+                      onClick={() => {
+                        setSelectedOrderId(order._id);
+                        document.getElementById("orderModal").showModal();
+                      }}
                     >
-                      {" "}
                       <TbListDetails />
                     </button>
-                    <button className="btn btn-error btn-sm">
+                    <button
+                      className="btn btn-error btn-sm"
+                      onClick={() => handleDeleteOrder(order._id)}
+                    >
                       <FiDelete />
                     </button>
                   </div>
@@ -136,7 +163,7 @@ const Index = () => {
           </tbody>
         </table>
       </div>
-      <ModelOrderDetails name="ModalOrderDetails" />
+      <ModelOrderDetails name="orderModal" orderId={selectedOrderId} />
     </div>
   );
 };

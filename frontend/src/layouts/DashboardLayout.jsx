@@ -1,4 +1,5 @@
-import React from "react";
+import {useContext}  from "react";
+import { AuthContext } from "../context/AuthContext";
 import { Outlet, useLocation, Link } from "react-router";
 import logo from "/images/admin/logo.png";
 
@@ -9,9 +10,15 @@ import { MdDashboardCustomize } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 
 const DashboardLayout = () => {
+  const { user, logout } = useContext(AuthContext);
   const isAdmin = true;
   const location = useLocation();
   const pathSegments = location.pathname.split("/").filter(Boolean);
+
+  const handleLogout = () => {
+    logout();
+  };
+
 
   return (
     <div>
@@ -58,6 +65,10 @@ const DashboardLayout = () => {
                   <div className="badge badge-primary">Admin</div>
                 </a>
               </li>
+              <li>
+                <div className="">Welcome Admin : <span className="font-bold text-red">{user.displayName}</span></div>
+              <a onClick={handleLogout}>Logout</a>
+            </li>
               <div className="relative flex py-5 items-center">
                 <div className="flex-grow border-t border-gray-400"></div>
                 <span className="flex-shrink mx-4 text-gray-400">Menu</span>
@@ -99,7 +110,7 @@ const DashboardLayout = () => {
                 <div className="flex-grow border-t border-gray-400"></div>
               </div>
               <li>
-                <a>Home</a>
+                <a href="/">Home</a>
               </li>
               <li>
                 <a>Product</a>
